@@ -1,15 +1,18 @@
 // dependencies
 var app 	= require('express')();
-var http 	= require('http').Server(app);	
+var express = require('express');
+var http 	= require('http').Server(app);
+var router	= require('./router');	
 
 // setup
 app.set('port', process.env.PORT || 3000);
+app.set('views', 'views');
+app.set('view engine', 'jade');
+
+app.use(express.static('public'));
+app.use(router);
 
 const PORT = app.get('port');
-
-app.get('/', function(req, res) {
-	res.send('Hello World');
-});
 
 // server
 var server = app.listen(PORT, function() {

@@ -3,12 +3,17 @@
   "version": "0.0.0",
   "description": "legends never die",
   "main": "app.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.10.2"
+    "express": "^4.10.2",
+    "jade": "^1.7.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }
