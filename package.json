@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.10.2",
-    "jade": "^1.7.0"
+    "jade": "^1.7.0",
+    "redis": "^0.12.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5"
