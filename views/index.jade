@@ -1,1 +1,20 @@
-p jade
+doctype html
+html(lang="en")
+	head
+		link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css", rel="stylesheet")
+		title= "Pickup Sports LFG"
+	body
+		h1(style="text-align:center;") Pickup Sports LFG
+		br
+		br
+		.container
+			.row
+					button#add-button.btn.btn-primary.center-block(style="width:20%;") Add My Sports Group
+					br
+			.row
+				form#add-group-form.form-horizontal
+					div#distance-input.form-group
+						
+					div#phone-input.form-group
+						label#phone-label.control-label(for="phone-input") Phone Number:
+						input#phone-input.form-control(type="text" name="phone-input" style="width:60%")
