@@ -13,23 +13,6 @@ html(lang="en")
 					br
 			.row
 				form#add-group-form.form-horizontal
-					div#distance-section.form-group
-						label#distance-input-label.control-label(for="distance-input") Distance:
-						br
-						div#distance-input-form.btn-group(name="distance-input" data-toggle="buttons")
-							label.btn.btn-default
-								input#one-mile-distance(type="radio")
-								|1 Mile
-							label.btn.btn-default
-								input#five-mile-distance(type="radio")
-								|5 Miles
-							label.btn.btn-default
-								input#ten-mile-distance(type="radio")
-								|10 Miles
-							label.btn.btn-default
-								input#twenty-five-mile-distance(type="radio")
-								|25 Miles
-
 					div#name-input-form.form-group
 						label#name-label.control-label(for="name-input") Name:
 						input#name-input.form-control(type="text" name="name-input" style="width:60%")
@@ -38,24 +21,72 @@ html(lang="en")
 						label#phone-label.control-label(for="phone-input") Phone Number:
 						input#phone-input.form-control(type="text" name="phone-input" style="width:60%")
 
-					div#sport-input-form.form-group.btn-group
-						button#basketball-button.btn.btn-default(role="button" type="button") Basketball
-						button#football-button.btn.btn-default(role="button" type="button") Football
-						button#soccer-button.btn.btn-default(role="button" type="button") Soccer
-						button#baseball-button.btn.btn-default(role="button" type="button") Baseball
-						button#handball-button.btn.btn-default(role="button" type="button") Handball
-						button#tennis-button.btn.btn-default(role="button" type="button") Tennis
-						button#ultimate-button.btn.btn-default(role="button" type="button") Ultimate Frisbee
+					div#distance-section.form-group
+						label#distance-input-label.control-label(for="distance-input") Distance:
+						br
+						div#distance-input-form.btn-group(name="distance-input" data-toggle="buttons")
+							label.btn.btn-default
+								input#one-mile-distance(type="radio" value="1" name="distance")
+								|1 Mile
+							label.btn.btn-default
+								input#five-mile-distance(type="radio" value="5" name="distance")
+								|5 Miles
+							label.btn.btn-default
+								input#ten-mile-distance(type="radio" value="10" name="distance")
+								|10 Miles
+							label.btn.btn-default
+								input#twenty-five-mile-distance(type="radio" value="25" name="distance")
+								|25 Miles
+
+					div#sport-section.form-group
+						label#sport-input-label.control-label(for="sport-input") Sport:
+						br
+						div#sport-input-form.btn-group(name="sport-input" data-toggle="buttons")
+							label.btn.btn-default
+								input#baseball-button(type="radio" value="baseball" name="sport")
+								|Baseball
+							label.btn.btn-default
+								input#basketball-button(type="radio" value="basketball" name="sport")
+								|Basketball
+							label.btn.btn-default
+								input#football-button(type="radio" value="football" name="sport")
+								|Football
+							label.btn.btn-default
+								input#handball-button(type="radio" value="handball" name="sport")
+								|Handball
+							label.btn.btn-default
+								input#soccer-button(type="radio" value="soccer" name="sport")
+								|Soccer
+							label.btn.btn-default
+								input#tennis-button(type="radio" value="tennis" name="sport")
+								|Tennis
+							label.btn.btn-default
+								input#ultimate-frisbee-button(type="radio" value="ultimate" name="sport")
+								|Ultimate Frisbee
 
 					div#skill-section.form-group
-						label#skill-label.control-label(for="skill-input") Skill Level:
+						label#skill-input-label.control-label(for="skill-input") Skill Level:
 						br
-						div#skill-input-form.btn-group(name="skill-input")
-							button#one-star-skill.btn.btn-default(role="button" type="button") *
-							button#two-star-skill.btn.btn-default(role="button" type="button") **
-							button#three-star-skill.btn.btn-default(role="button" type="button") ***
-							button#four-star-skill.btn.btn-default(role="button" type="button") ****
-							button#five-star-skill.btn.btn-default(role="button" type="button") *****
+						div#skill-input-form.btn-group(name="skill-input" data-toggle="buttons")
+							label.btn.btn-default
+								input#one-star-skill(type="radio" value="1" name="skill")
+								|*
+							label.btn.btn-default
+								input#two-star-skill(type="radio" value="2" name="skill")
+								|**
+							label.btn.btn-default
+								input#three-star-skill(type="radio" value="3" name="skill")
+								|***
+							label.btn.btn-default
+								input#four-star-skill(type="radio" value="4" name="skill")
+								|****
+							label.btn.btn-default
+								input#five-star-skill(type="radio" value="5" name="skill")
+								|*****
 
 					div#submit-section.form-group
+						br
 						button#submit-button.btn.btn-success(role="button" type="submit") Submit Posting
+
+	script(src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+	script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js")
