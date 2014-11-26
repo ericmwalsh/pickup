@@ -13,8 +13,49 @@ html(lang="en")
 					br
 			.row
 				form#add-group-form.form-horizontal
-					div#distance-input.form-group
-						
-					div#phone-input.form-group
+					div#distance-section.form-group
+						label#distance-input-label.control-label(for="distance-input") Distance:
+						br
+						div#distance-input-form.btn-group(name="distance-input" data-toggle="buttons")
+							label.btn.btn-default
+								input#one-mile-distance(type="radio")
+								|1 Mile
+							label.btn.btn-default
+								input#five-mile-distance(type="radio")
+								|5 Miles
+							label.btn.btn-default
+								input#ten-mile-distance(type="radio")
+								|10 Miles
+							label.btn.btn-default
+								input#twenty-five-mile-distance(type="radio")
+								|25 Miles
+
+					div#name-input-form.form-group
+						label#name-label.control-label(for="name-input") Name:
+						input#name-input.form-control(type="text" name="name-input" style="width:60%")
+
+					div#phone-input-form.form-group
 						label#phone-label.control-label(for="phone-input") Phone Number:
 						input#phone-input.form-control(type="text" name="phone-input" style="width:60%")
+
+					div#sport-input-form.form-group.btn-group
+						button#basketball-button.btn.btn-default(role="button" type="button") Basketball
+						button#football-button.btn.btn-default(role="button" type="button") Football
+						button#soccer-button.btn.btn-default(role="button" type="button") Soccer
+						button#baseball-button.btn.btn-default(role="button" type="button") Baseball
+						button#handball-button.btn.btn-default(role="button" type="button") Handball
+						button#tennis-button.btn.btn-default(role="button" type="button") Tennis
+						button#ultimate-button.btn.btn-default(role="button" type="button") Ultimate Frisbee
+
+					div#skill-section.form-group
+						label#skill-label.control-label(for="skill-input") Skill Level:
+						br
+						div#skill-input-form.btn-group(name="skill-input")
+							button#one-star-skill.btn.btn-default(role="button" type="button") *
+							button#two-star-skill.btn.btn-default(role="button" type="button") **
+							button#three-star-skill.btn.btn-default(role="button" type="button") ***
+							button#four-star-skill.btn.btn-default(role="button" type="button") ****
+							button#five-star-skill.btn.btn-default(role="button" type="button") *****
+
+					div#submit-section.form-group
+						button#submit-button.btn.btn-success(role="button" type="submit") Submit Posting
