@@ -1,7 +1,7 @@
 doctype html
-html(lang="en")
+html(ng-app="app", lang="en")
 	head
-		link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css", rel="stylesheet")
+		link(href="./components/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
 		title= "Pickup Sports LFG"
 	body
 		h1(style="text-align:center;") Pickup Sports LFG
@@ -88,5 +88,10 @@ html(lang="en")
 						br
 						button#submit-button.btn.btn-success(role="button" type="submit") Submit Posting
 
-	script(src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
-	script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js")
+	// third party libraries
+	script(src="./components/jquery/dist/jquery.js")
+	script(src="./components/bootstrap/dist/js/bootstrap.js")
+	script(src="./components/angular/angular.js")
+
+	// angular
+	script(src="./javascripts/app.js")
