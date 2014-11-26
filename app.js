@@ -1,5 +1,6 @@
 // dependencies
 var app 	= require('express')();
+var bodyParser = require('body-parser');
 var express = require('express');
 var http 	= require('http').Server(app);
 var router	= require('./router');	
@@ -11,6 +12,8 @@ app.set('views', 'views');
 app.set('view engine', 'jade');
 
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(router);
 
 const PORT = app.get('port');
