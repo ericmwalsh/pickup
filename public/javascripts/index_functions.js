@@ -25,6 +25,7 @@ $("#add-group-form").submit(function(e){
 			var userData = $('#add-group-form').serializeObject();
 			userData["latitude"] = position.coords.latitude;
 			userData["longitude"] = position.coords.longitude;
+			userData["time"] = Date.now();
 			$.ajax({
 				type:"POST",
 				url: "/post/",
