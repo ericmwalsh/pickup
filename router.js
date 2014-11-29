@@ -4,6 +4,10 @@ router.get('/', function(req, res) {
 	res.render('index');
 });
 
+router.get('/home', function(req, res) {
+	res.render('homepage');
+});
+
 router.get('/msg/', function(req, res) {
 	res.send("Hello World spicy fries!");
 });
