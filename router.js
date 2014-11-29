@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var redis = require('./redis');
 
 router.get('/', function(req, res) {
 	res.render('index');
@@ -14,6 +15,11 @@ router.get('/msg/', function(req, res) {
 
 router.post('/post/', function(req, res){
 	console.log(req.body);
+	console.log("ip of sender : " + req.connection.remoteAddress);
+	//request.headers['X-Forwarded-For']
+
+	redis.hmset(req.connection.remoteAddress, req.body);
+	redis.expire(req.connection.remoteAddress, 7200);
 	res.sendStatus(200);
 });
 

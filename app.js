@@ -8,9 +8,6 @@ var router	= require('./router');
 var redis 	= require('redis');
 var sassMiddleware = require('node-sass-middleware');
 
-var srcPath = __dirname + '/styles';
-var destPath = __dirname + '/public/stylesheets';
-
 // setup
 app.set('port', process.env.PORT || 3000);
 app.set('views', 'views');
@@ -18,8 +15,8 @@ app.set('view engine', 'jade');
 
 app.use(
 	sassMiddleware({
-		src: srcPath,
-		dest: destPath,
+		src: __dirname + '/styles',
+		dest: __dirname + '/public/stylesheets',
 		debug: true,
 		outputStyle: 'expanded',
 		prefix: '/stylesheets'
