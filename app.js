@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var http 	= require('http').Server(app);
 var router	= require('./router');	
-var redis = require('redis');
 
 // setup
 app.set('port', process.env.PORT || 3000);
