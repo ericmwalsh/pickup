@@ -18,7 +18,8 @@ router.post('/post/', function(req, res){
 	console.log("ip of sender : " + req.connection.remoteAddress);
 	//request.headers['X-Forwarded-For']
 
-	redis.addObject(req.connection.remoteAddress, req.body);
+	//redis.addPosting(req.connection.remoteAddress, req.body);
+	redis.getAllPostings(req.body);
 
 	//redis.hmset(req.connection.remoteAddress, req.body);
 	//redis.expire(req.connection.remoteAddress, 7200);

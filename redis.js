@@ -19,7 +19,7 @@ if (credentials.password != ''){
 function subscribe(pattern){
     subscriber.psubscribe(pattern);
     subscriber.on('pmessage', function(pattern, channel, message){     
-    	var luaScript = "local delPost = cjson.decode(redis.call('get', 'posting:' .. KEYS[1])) \
+    	var delScript = "local delPost = cjson.decode(redis.call('get', 'posting:' .. KEYS[1])) \
     		redis.call('del', 'posting:' .. KEYS[1]) \
     		redis.call('srem', 'allSports', KEYS[1]) \
     		redis.call('srem', 'allSkills', KEYS[1]) \
@@ -27,10 +27,10 @@ function subscribe(pattern){
     		redis.call('srem', 'level' .. delPost['skill'], KEYS[1]) \
     		return";
 
-    	publisher.eval(luaScript, 1, message, function(err, res){
+    	publisher.eval(delScript, 1, message, function(err, res){
     		console.dir(err); // errors if any
     		console.dir(res); // whatever luaScript returns, currently nothing
-    	})
+    	});
 
         //console.log('on publish / subscribe   '+  pattern+'   '+channel+'     '+message);
     });
@@ -42,7 +42,9 @@ subscribe("__keyevent@0__:expired");
 //returned to router.js
 module.exports = {
 
-	addObject: function(key, value) { //value is in JSON form
+	addPosting: function(key, value) { //value is in JSON form
+		//value.latitude = 33.7686139;
+		//value.longitude = -118.0127671;
 		publisher.multi().setex(key, 7200, key).set("posting:" + key, JSON.stringify(value)).
 			sadd("allSports", key).
 			sadd("allSkills", key).
@@ -54,6 +56,49 @@ module.exports = {
                 	console.log("Reply " + index + ": " + reply.toString());
             	});**/
 			});
+	},
+	getAllPostings: function(value){ //value is in JSON form
+		var sportSet = value.sport == "allSports" ? "allSports" : value.sport;
+		var skillSet = value.skill == "allSkills" ? "allSkills" : "level" + value.skill;
+
+		var getScript = "local postingIDs = redis.call('sinter', KEYS[1], KEYS[2]) \
+			function calcDist(lat1, lon1, lat2, lon2) \
+				lat1= lat1*0.0174532925 \
+				lat2= lat2*0.0174532925 \
+				lon1= lon1*0.0174532925 \
+				lon2= lon2*0.0174532925 \
+				\
+				dlon = lon2-lon1 \
+				dlat = lat2-lat1 \
+				\
+				a = math.pow(math.sin(dlat/2),2) + math.cos(lat1) * math.cos(lat2) * math.pow(math.sin(dlon/2),2) \
+				c = 2 * math.asin(math.sqrt(a)) \
+				dist = 6371 * c * 0.621371 \
+				return dist \
+			end \
+			\
+			local postings = {} \
+			for i=1, #postingIDs do \
+				local tempPost = cjson.decode(redis.call('get', 'posting:' .. postingIDs[i])) \
+				if calcDist(ARGV[1], ARGV[2], tempPost['latitude'], tempPost['longitude']) <= ARGV[3] then \
+					table.insert(postings, tempPost) \
+				end \
+			end \
+			return postings";
+
+		publisher.eval(getScript, 2, sportSet, skillSet, value.latitude, value.longitude, value.distance, function(err, res){
+			console.dir(err);
+			console.dir(res);
+		});
+		/**	
+		publisher.smembers("allSports", function(err, res){
+			console.log("and so it begins...");
+			console.log(res);
+		});
+		**/
+
 	}
+
+
 
 };
