@@ -13,16 +13,19 @@ router.get('/msg/', function(req, res) {
 	res.send("Hello World spicy fries!");
 });
 
+router.get('/posts/', function(req, res){
+	console.log(req.body);
+	console.log("ip of sender : " + req.connection.remoteAddress);
+	redis.getAllPostings(req.body);
+	redis.sendStatus(200);
+});
+
 router.post('/post/', function(req, res){
 	console.log(req.body);
 	console.log("ip of sender : " + req.connection.remoteAddress);
+	//alternative way to obtain ip address
 	//request.headers['X-Forwarded-For']
-
-	//redis.addPosting(req.connection.remoteAddress, req.body);
-	redis.getAllPostings(req.body);
-
-	//redis.hmset(req.connection.remoteAddress, req.body);
-	//redis.expire(req.connection.remoteAddress, 7200);
+	redis.addPosting(req.connection.remoteAddress, req.body);
 	res.sendStatus(200);
 });
 
