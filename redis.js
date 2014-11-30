@@ -15,4 +15,24 @@ if (credentials.password != ''){
 	publisher.auth(credentials.password);
 }
 
-module.exports =  publisher;
+//subscribe to keyevent notifications for expires in the DB
+//console.log(publisher.config.toString());
+//publisher.config("SET notify-keyspace-events Ex", function(){console.log("helo");});//, "notify-keyspace-events Ex");
+
+module.exports = {
+
+	addObject: function(key, value) { //value is in JSON form
+		publisher.multi().setex("posting:" + key, 7200, JSON.stringify(value)).
+			sadd("allSports", key).
+			sadd("allSkills", key).
+			sadd(value.sport, key).
+			sadd("level" + value.skill, key).
+			exec(function(err, replies){
+				/**console.log("MULTI got " + replies.length + " replies");
+            	replies.forEach(function (reply, index) {
+                	console.log("Reply " + index + ": " + reply.toString());
+            	});**/
+			});
+	}
+
+};
