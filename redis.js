@@ -15,14 +15,35 @@ if (credentials.password != ''){
 	publisher.auth(credentials.password);
 }
 
-//subscribe to keyevent notifications for expires in the DB
-//console.log(publisher.config.toString());
-//publisher.config("SET notify-keyspace-events Ex", function(){console.log("helo");});//, "notify-keyspace-events Ex");
+//delegates the 'subscriber' client to run a deletion script every time a posting expires
+function subscribe(pattern){
+    subscriber.psubscribe(pattern);
+    subscriber.on('pmessage', function(pattern, channel, message){     
+    	var luaScript = "local delPost = cjson.decode(redis.call('get', 'posting:' .. KEYS[1])) \
+    		redis.call('del', 'posting:' .. KEYS[1]) \
+    		redis.call('srem', 'allSports', KEYS[1]) \
+    		redis.call('srem', 'allSkills', KEYS[1]) \
+    		redis.call('srem', delPost['sport'], KEYS[1]) \
+    		redis.call('srem', 'level' .. delPost['skill'], KEYS[1]) \
+    		return";
 
+    	publisher.eval(luaScript, 1, message, function(err, res){
+    		console.dir(err); // errors if any
+    		console.dir(res); // whatever luaScript returns, currently nothing
+    	})
+
+        //console.log('on publish / subscribe   '+  pattern+'   '+channel+'     '+message);
+    });
+}
+subscribe("__keyevent@0__:expired");
+
+
+
+//returned to router.js
 module.exports = {
 
 	addObject: function(key, value) { //value is in JSON form
-		publisher.multi().setex("posting:" + key, 7200, JSON.stringify(value)).
+		publisher.multi().setex(key, 7200, key).set("posting:" + key, JSON.stringify(value)).
 			sadd("allSports", key).
 			sadd("allSkills", key).
 			sadd(value.sport, key).
